@@ -82,4 +82,4 @@ class UserFunctions {
   }
 }
 
-exports.UserFunctions = UserFunctions
+module.exports = UserFunctions
