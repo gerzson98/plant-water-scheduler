@@ -4,7 +4,7 @@ const db = require('../server/db')
 const Groups = require('../models/groups')
 
 class GroupFunctions {
-  async GetGroupsByUserId(userId) {
+  async getGroupsByUserId(userId) {
     const result = await Groups.findAll({ where: { createdBy: userId } })
     return result
   }
