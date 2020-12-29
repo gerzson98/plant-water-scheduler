@@ -9,6 +9,16 @@ const { transaction } = require('../server/db')
  */
 
 class GroupFunctions {
+  async getGroupById(groupId) {
+    if (!groupId)
+      throw new Error('Missing or incorrect parameter groupId | GroupFunctions.getGroupById')
+    const result = await Groups.findOne({
+      where: {
+        id: groupId
+      }
+    })
+    return result
+  }
    /**
    * @description Gets user by userId
    * @param {Number} id 
