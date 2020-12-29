@@ -14,7 +14,7 @@ class UserFunctions {
    * @description Returns all active user
    * @return {Promise<any>}
    */
-  async GetAllUser() {
+  async getAllUser() {
     const result = await Users.findAll()
     return result
   }
@@ -23,16 +23,16 @@ class UserFunctions {
   * @param {Number} userId
   * @return {Promise<any>}
   */
-  async GetUserById(userId) {
+  async getUserById(userId) {
     if (!userId)
-      throw new Error('Missing parameter @param {Number} userId | UserFunctions.GetUserById')
+      throw new Error('Missing parameter @param {Number} userId | UserFunctions.getUserById')
     const result = await Users.findByPk(userId)
     return result
   }
 
-  async CreateUser(userData) {
+  async createUser(userData) {
     if (!userData || typeof userData !== 'object' || Array.isArray(userData))
-      throw new Error('Missing or incorrect parameter @param {Object} userData | UserFunctions.CreateUser')
+      throw new Error('Missing or incorrect parameter @param {Object} userData | UserFunctions.createUser')
     await db.transaction(async (t) => {
       const salt = await bcrypt.genSalt(10)
       const hash = await bcrypt.hash(userData.password, salt)
@@ -46,9 +46,9 @@ class UserFunctions {
    * @param {Object} params
    * @return {Promise<any>}
    */
-  async UpdateUser(userId, params) {
+  async updateUser(userId, params) {
     if (!userId || !params || typeof params !== 'object' || Array.isArray(params))
-      throw new Error('Missing or incorect parameter @param {Number} userId or @param {Object} params | UserFunctions.UpdateUser')
+      throw new Error('Missing or incorect parameter @param {Number} userId or @param {Object} params | UserFunctions.updateUser')
     await db.transaction(async (t) => {
       await Users.update(params, {
         transaction: t, where: { id: userId }
@@ -60,7 +60,7 @@ class UserFunctions {
 * @param {Number} userId
 * @return {Promise<any>}
 */
-  async DeleteUser(userId) {
+  async deleteUser(userId) {
     if (!userId)
       throw new Error('Missing parameter @param {Number} userId | ActivityFunctions.DeleteActivity')
     await db.transaction(async (t) => {
@@ -73,7 +73,7 @@ class UserFunctions {
   * @description Truncate users table
   * @return {Promise<any>}
   */
-  async TruncateUsers() {
+  async truncateUsers() {
     await db.transaction(async (t) => {
       await Users.destroy({
         truncate: true
