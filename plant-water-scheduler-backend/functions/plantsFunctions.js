@@ -27,6 +27,7 @@ class PlantsFunctions {
         id: plantId
       }
      })
+    return result
   }
 
   async getPlantsByGroup(groupId) {
