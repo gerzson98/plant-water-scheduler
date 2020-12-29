@@ -1,4 +1,4 @@
-# water-reminder-portal
+# plant-water-scheduler-portal
 
 ## Project setup
 ```
