@@ -4,6 +4,10 @@ const db = require('../server/db')
 const Groups = require('../models/groups')
 const { transaction } = require('../server/db')
 
+/**
+ * @typedef GroupFunctions
+ */
+
 class GroupFunctions {
    /**
    * @description Gets user by userId
@@ -25,23 +29,39 @@ class GroupFunctions {
     return result
   }
 
-  createGroup(groupName, userId, alowedUsers, ) {
-
+  createGroup(params) {
+    if (!params || typeof params !== 'object')
+      throw new Error('Missing or incorrect parameters | GroupFunctions.createGroup')
+    await db.transaction(async (t) => {
+      await Groups.create(params, {
+        transaction: t
+      })
+    })
   }
+  
    /**
    * @description Updates allowed users list.
    * @param {Number}
-   * @param {Array<Number>}
+   * @param {Object} params
    * @return {Promise<any>}
    */
-  updateAllowedUsers(groupId, userIds) {
-    if (!groupId || userIds[0] === undefined)
-      throw new Error('Missing or incorect parameter @param {Number} userId or @param {Array<Number>} userIds | GroupFunctions.updateAllowedUsers')
-    const allowedUsers = userIds.join(';')
+  async updateGroup(groupId, params) {
+    if (!groupId || params !== 'object' || Array.isArray(params))
+      throw new Error('Missing or incorect parameter  | GroupFunctions.updateGroup')
     await db.transaction(async (t) => {
-      await Groups.update({ allowedUsers }, {
-        transaction: t, where: { id: groupId }
-      })
+      await Groups.update(params, {
+        where: { id: groupId }
+      }, { transaction: t })
+    })
+  }
+
+  async deleteGroup(groupId) {
+    if (!groupId)
+      throw new Error('Missing parameter groupId | GroupFunctions.deleteGroup')
+    await db.transaction(async (t) => {
+      await Groups.destroy({
+        where: { id: groupId }
+      }, { transaction: t })
     })
   }
 
