@@ -3,9 +3,9 @@
 const db = require('../server/db')
 const { DataTypes } = require('sequelize')
 /**
- * @typedef Plants
+ * @typedef Species
  */
-const Plants = db.define('species', {
+const Species = db.define('species', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
