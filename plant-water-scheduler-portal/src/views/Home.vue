@@ -1,17 +1,19 @@
 <template>
   <div class="home d-flex flex-column alig-items-center">
-    <PlantCard
+    <!-- <PlantCard
       :imgSrc="img"
       :name="name"
       :nickName="nickName"
       :description="description"
     />
     <PlantBadge name="alma" :icons="['fas fa-tint']" />
-    <PlantGroupList :group="group" />
+    <PlantGroupList :group="group" /> -->
+    <Login />
   </div>
 </template>
 
 <script>
+import Login from "../views/Login";
 import PlantCard from "../components/PlantCard";
 import PlantBadge from "../components/PlantBadge";
 import PlantGroupList from "../components/PlantGroupList";
@@ -45,6 +47,7 @@ export default {
     };
   },
   components: {
+    Login,
     PlantCard,
     PlantBadge,
     PlantGroupList,
