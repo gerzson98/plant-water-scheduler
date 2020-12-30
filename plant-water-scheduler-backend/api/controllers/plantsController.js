@@ -19,7 +19,7 @@ exports.getAll = asyncHelper((request, response, next) => {
 exports.getByGroupId = asyncHelper((request, response, next) => {
   const id = request.body.groupId
   if (typeof id !== 'number') {
-    const message = 'Missing or incorrect groupId | plantsController.getByGroupId'
+    const message = 'Missing or incorrect request property groupId | plantsController.getByGroupId'
     next(new ErrorResponse(message, 500))
   }
   try {
@@ -32,6 +32,10 @@ exports.getByGroupId = asyncHelper((request, response, next) => {
 
 exports.updatePlant = asyncHelper((request, response, next) => {
   const plant = request.body.plant
+  if (typeof plant !== 'object' || Array.isArray(plant) || typeof plant.id !== 'number') {
+    const message = 'Missing or incorrect request property plant | plantsController.updatePlant'
+    next(new ErrorResponse(message, 500))
+  }
   try {
     await PlantsService.updatePlant(plant.id, plant)
     response.status(200).json({})
@@ -41,8 +45,12 @@ exports.updatePlant = asyncHelper((request, response, next) => {
 })
 
 exports.createPlant = asyncHelper((request, response, next) => {
+  const plant = request.body.plant
+  if (typeof plant !== 'object' || Array.isArray(plant)) {
+    const message = 'Missing or incorrect request property plant | plantsController.createPlant'
+    next(new ErrorResponse(message, 500))
+  }
   try {
-    const plant = request.body.plant
     await PlantsService.createPlant(plant)
     response.status(200).json({})
   } catch (error) {
@@ -51,8 +59,12 @@ exports.createPlant = asyncHelper((request, response, next) => {
 })
 
 exports.deletePlant = asyncHelper((request, response, next) => {
+  const plantId = request.body.plant.id
+  if (typeof plantId !== 'number') {
+    const message = 'Missing or incorrect request property plant.id | plantsController.deletePlant'
+    next(new ErrorResponse(message, 500))
+  }
   try {
-    const plantId = request.body.plant.id
     await PlantsService.deletePlant(plantId)
     response.status(200).json({})
   } catch (error) {
