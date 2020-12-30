@@ -3,17 +3,18 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
-import './style.scss'
+import './style/style.scss'
 import './registerServiceWorker'
 
 import { BootstrapVue } from 'bootstrap-vue'
 
-Vue.config.productionTip = false
-
 Vue.use(BootstrapVue)
 
+Vue.config.productionTip = false
+
+
 new Vue({
-  router,
   store,
+  router,
   render: h => h(App)
 }).$mount('#app')
