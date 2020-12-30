@@ -5,7 +5,7 @@ const PlantsService = require('../../services/functionService')
 const ErrorResponse = require('../middlewares/ErrorResponse')
 
 
-exports.getAll = asyncHelper((request, response, next) => {
+exports.getAllPlants = asyncHelper((request, response, next) => {
   try {
     const result = await PlantsService.getAllPlants()
     response.status(200).json({
