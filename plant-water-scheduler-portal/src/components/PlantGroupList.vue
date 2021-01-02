@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import PlantBadge from "./PlantBadge";
+import PlantBadge from './PlantBadge';
 
 export default {
-  name: "PlantGroupList",
+  name: 'PlantGroupList',
   data() {
     return {
       visible: false,

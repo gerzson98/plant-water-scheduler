@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import PlantCard from "./PlantCard";
+import PlantCard from './PlantCard';
 
 export default {
-  name: "PlantCardList",
+  name: 'PlantCardList',
   data() {
     return {
       visible: false,
